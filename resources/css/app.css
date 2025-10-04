@@ -1,0 +1,334 @@
+/* === GLOBAL & VARIABLES === */
+:root {
+    --primary-purple: #6D28D9;
+    --primary-blue: #4F46E5;
+    --dark-bg: #111827;
+    --medium-bg: #1F2937;
+    --light-bg: #F9FAFB;
+    --text-light: #E5E7EB;
+    --text-dark: #374151;
+    --border-color: #374151;
+    --box-shadow: 0px 8px 24px rgba(149, 157, 165, 0.2);
+    --border-radius: 12px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #E0E7FF, #F3E8FF);
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* === HEADER === */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    background: white;
+    padding: 15px 30px;
+    border-radius: var(--border-radius);
+    margin-top: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: var(--text-dark);
+    margin: 0 15px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: var(--primary-purple);
+}
+
+/* === BUTTONS === */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-purple);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-blue);
+}
+
+.btn-gradient {
+    background: linear-gradient(90deg, var(--primary-purple), var(--primary-blue));
+    color: white;
+    padding: 12px 24px;
+    font-size: 1rem;
+}
+
+.btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.btn-secondary {
+    background-color: #e2e8f0;
+    color: var(--text-dark);
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e1;
+}
+
+/* === LANDING PAGE: HERO & FEATURES === */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 80px 0;
+    gap: 40px;
+}
+
+.hero-content {
+    max-width: 50%;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.feature-card {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    flex: 1;
+}
+
+.feature-card h3 {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+/* === LANDING PAGE: FEATURED SCRIPTS === */
+.featured-scripts {
+    margin-bottom: 80px;
+}
+
+.featured-scripts h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 40px;
+}
+
+.scripts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.script-card {
+    background: var(--dark-bg);
+    color: var(--text-light);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.script-card img {
+    width: 100%;
+    display: block;
+}
+
+.script-card h4 {
+    padding: 15px;
+    margin: 0;
+    font-weight: 500;
+}
+
+
+/* === EDITOR PAGE === */
+.editor-container {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr;
+    gap: 15px;
+    background: white;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    height: 75vh;
+    margin-top: 20px;
+}
+
+.file-panel, .code-editor-panel, .live-preview-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-panel {
+    background: var(--light-bg);
+    padding: 15px;
+    border-radius: 8px;
+}
+.file-panel h3 { margin-top: 0; }
+.file-tree { list-style: none; padding: 0; }
+.file-tree li { padding: 8px 10px; cursor: pointer; border-radius: 4px; }
+.file-tree li.active { background: #dbeafe; color: var(--primary-blue); font-weight: 600; }
+.file-tree i { margin-right: 8px; }
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: var(--light-bg);
+    border-bottom: 1px solid #e5e7eb;
+    border-radius: 8px 8px 0 0;
+}
+
+.panel-header h4 { margin: 0; font-weight: 500; }
+
+.code-editor {
+    flex-grow: 1;
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    font-family: 'Fira Code', monospace;
+    padding: 15px;
+    overflow: auto;
+    border-radius: 0 0 8px 8px;
+}
+
+.preview-content {
+    flex-grow: 1;
+    padding: 15px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+}
+
+/* === PROJECTS DASHBOARD === */
+.projects-dashboard {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    margin-top: 20px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.dashboard-header h2 { margin: 0; }
+.dashboard-controls { display: flex; align-items: center; gap: 15px; }
+.dashboard-controls input {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.project-card {
+    background: var(--light-bg);
+    border: 1px solid #e5e7eb;
+    border-radius: var(--border-radius);
+    padding: 20px;
+}
+
+.project-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.project-thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background: #ccc;
+}
+
+.options-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #9ca3af;
+}
+
+.project-card h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.project-card p {
+    margin: 0 0 15px 0;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.tech-stack {
+    display: flex;
+    gap: 8px;
+}
+
+.tech-stack span {
+    background: #e0e7ff;
+    color: var(--primary-blue);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
