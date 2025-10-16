@@ -28,28 +28,12 @@ class UserController extends Controller
 
         $user->update(['role_id' => $request->role_id]);
 
-        Activity::create([
-            'user_id' => auth()->id(),
-            'action' => 'update',
-            'model' => 'User',
-            'model_id' => $user->id,
-            'description' => "Updated user by: {$user->name}"
-        ]);
-
         return redirect('/admin/users')->with('success','Role updated successfully.');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-
-        Activity::create([
-            'user_id' => auth()->id(),
-            'action' => 'delete',
-            'model' => 'User',
-            'model_id' => $user->id,
-            'description' => "Deleted user by: {$user->name}"
-        ]);
 
         return redirect('/admin/users')->with('success','User deleted successfully.');
     }

@@ -14,6 +14,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->foreignId('role_id')->default(3)->constrained('roles');
+            $table->string('avatar')->nullable();
+            $table->string('bio')->nullable();
+            $table->string('location')->nullable();
+            $table->string('link1')->nullable();
+            $table->string('link2')->nullable();
+            $table->string('link3')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

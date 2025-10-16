@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
-use App\Models\Activity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller {
     public function loginForm() {
-        return view('auth.login');
+        return view('auth');
     }
 
     public function login(Request $request) {
@@ -32,11 +31,6 @@ class AdminController extends Controller {
 
     public function index()
     {
-        $activities = Activity::with('user')
-            ->latest()
-            ->take(6)
-            ->get();
-
-        return view('admin.dashboard', compact('activities'));
+        return view('admin.dashboard');
     }
 }

@@ -24,4 +24,9 @@ class HomeController extends Controller
     {
         return view('projects');
     }
+    
+    public function profile()
+    {
+        return view('profile');
+    }
 }

@@ -6,6 +6,8 @@ use App\Http\Controllers\TopDestinationController;
 use App\Http\Controllers\TrendingTourController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
@@ -18,6 +20,11 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/editor', [HomeController::class, 'editor']);
 Route::get('/projects', [HomeController::class, 'projects']);
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::resource('projects', ProjectController::class);
+});
 
 // ==================== AUTH =====================
 Route::middleware('guest')->group(function () {
@@ -28,7 +35,6 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
-
 
 // ==================== SUPER ADMIN ==============
 Route::middleware(['auth', EnsureRole::class . ':1'])->prefix('admin')->name('admin.')->group(function () {
