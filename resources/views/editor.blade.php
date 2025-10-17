@@ -4,24 +4,47 @@
 
 @section('content')
 <div class="editor-container">
+    {{-- Sidebar --}}
     <aside class="file-panel">
-        <h3>Project Files</h3>
+        <div class="mb-4">
+            <div class="flex justify-between items-center">
+                <div class="project-title-wrap d-flex align-items-center">
+                    <h3 class="me-5 mb-0">
+                        <span id="project-label" class="font-semibold text-lg">Project</span>
+                    </h3>
+                    <a href="#" id="edit-action" class="icon-btn" title="Edit" aria-label="Edit">
+                        <i class="fa-solid fa-file-pen"></i>
+                    </a>
+                </div>
+            </div>
+            <input type="text" id="project-name" class="d-none form-control mt-2" value="{{ $projectName ?? 'Project 1' }}" placeholder="Name Project..." />
+        </div>
         <ul class="file-tree">
-            <li class="file-item active" data-filename="index.html"><i class='bx bxl-html5'></i> index.html</li>
-            <li class="file-item" data-filename="style.css"><i class='bx bxl-css3'></i> style.css</li>
-            <li class="file-item" data-filename="script.js"><i class='bx bxl-javascript'></i> script.js</li>
+            <li class="file-item active" data-filename="index.html">
+                <span class="file-name">index.html</span>
+                <span class="file-type"><i class="bx bxl-html5"></i></span>
+            </li>
+            <li class="file-item" data-filename="style.css">
+                <span class="file-name">style.css</span>
+                <span class="file-type"><i class="bx bxl-css3"></i></span>
+            </li>
+            <li class="file-item" data-filename="script.js">
+                <span class="file-name">script.js</span>
+                <span class="file-type"><i class="bx bxl-javascript"></i></span>
+            </li>
         </ul>
     </aside>
 
+    {{-- Editor Panel --}}
     <section class="code-editor-panel">
         <div class="panel-header">
             <h4 id="current-filename">index.html</h4>
-            <div class="panel-actions">
+            <div class="panel-actions ">
                 <a href="#" id="run-action" class="icon-btn" title="Run" aria-label="Run">
                     <i class="fa-solid fa-play"></i>
                 </a>
-                <a href="#" id="save-action" class="icon-btn ms-2" title="Save" aria-label="Save">
-                    <i class="fa-solid fa-floppy-disk"></i>
+                <a href="#" id="save-action" class="icon-btn" title="Save" aria-label="Save">
+                    <i class="fa-solid fa-floppy-disk "></i>
                 </a>
             </div>
         </div>
@@ -32,14 +55,18 @@
 <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.34.1/min/vs/loader.js"></script>
 
 <script>
+    const userLoggedIn = @json(Auth::check());
+    const csrfToken = "{{ csrf_token() }}";
+
     const projectFiles = {!! json_encode($projectFiles ?? [
         'index.html' => "<h1>Hello, Scriptly!</h1>\n<p>Click Run to see the preview.</p>",
-        'style.css'  => "body {\n  background-color: #f0f0f0;\n  font-family: sans-serif;\n  color: #333;\n}",
-        'script.js'  => "console.log(\"Welcome to the Scriptly editor!\");"
+        'style.css'  => "body {\n  background-color: #1a1a1a;\n  font-family: sans-serif;\n  color: #eee;\n  text-align:center;\n  margin-top:50px;\n}",
+        'script.js'  => "console.log(\"Welcome to Scriptly!\");"
     ], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) !!};
 
     let editor;
     let currentOpenFile = 'index.html';
+    let projectCounter = 1;
 
     require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.34.1/min/vs' }});
 
@@ -60,6 +87,40 @@
     const saveButton = document.getElementById('save-action');
     const fileItems = document.querySelectorAll('.file-item');
     const currentFilenameElement = document.getElementById('current-filename');
+    const projectNameInput = document.getElementById('project-name');
+    const editAction = document.getElementById('edit-action');
+    const projectLabel = document.getElementById('project-label');
+
+    editAction?.addEventListener('click', function(e){
+        e.preventDefault();
+        projectNameInput.classList.toggle('d-none');
+        if (!projectNameInput.classList.contains('d-none')) {
+            projectNameInput.value = projectLabel.textContent.trim();
+            projectNameInput.focus();
+            projectNameInput.select();
+        } else {
+            const val = projectNameInput.value.trim() || projectLabel.textContent.trim() || 'Project';
+            projectLabel.textContent = val;
+        }
+    });
+
+    projectNameInput?.addEventListener('keydown', function(e){
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const val = projectNameInput.value.trim() || 'Project';
+            projectLabel.textContent = val;
+            projectNameInput.classList.add('d-none');
+        } else if (e.key === 'Escape') {
+            projectNameInput.classList.add('d-none');
+            projectNameInput.value = projectLabel.textContent.trim();
+        }
+    });
+
+    projectNameInput?.addEventListener('blur', function(){
+        const val = projectNameInput.value.trim();
+        if (val) projectLabel.textContent = val;
+        projectNameInput.classList.add('d-none');
+    });
 
     function switchFile(filename) {
         if (!editor || !projectFiles[filename]) return;
@@ -111,7 +172,48 @@
 
     saveButton?.addEventListener('click', function(e){
         e.preventDefault();
-        console.log('Save requested', projectFiles);
+
+        if (!userLoggedIn) {
+            alert('🚫 Silakan login untuk menyimpan project Anda.');
+            return;
+        }
+
+        let projectName = projectNameInput.value.trim();
+
+        if (!projectName || projectName === '') {
+            projectCounter++;
+            projectName = `Project ${projectCounter}`;
+            projectNameInput.value = projectName;
+        }
+
+        const payload = {
+            _token: csrfToken,
+            title: projectName,
+            html: projectFiles['index.html'],
+            css: projectFiles['style.css'],
+            js: projectFiles['script.js']
+        };
+
+        fetch("{{ route('projects.save') }}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            body: JSON.stringify(payload),
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                alert(`✅ ${data.message}\n💾 Nama Project: ${projectName}`);
+            } else {
+                alert('❌ Gagal menyimpan project.');
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('⚠️ Terjadi kesalahan saat menyimpan.');
+        });
     });
 
     fileItems.forEach(item => {

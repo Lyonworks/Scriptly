@@ -59,34 +59,14 @@
 
         <div class="projects-grid">
 
-            <div class="project-card large">
-                <img src="https://i.imgur.com/mKeUm1Q.png" alt="Project Thumbnail" class="card-thumbnail">
-                <div class="card-body">
-                    <h3 class="card-title">JS Game: Space Rocks</h3>
-                    <ul class="description-list">
-                        <li>Interactive gameplay with physics.</li>
-                        <li>Score tracking and high scores.</li>
-                        <li>Built with pure JavaScript.</li>
-                    </ul>
-                    <a href="#" class="btn-enter">Enter</a>
-                </div>
-                <i class='bx bx-dots-horizontal-rounded card-options'></i>
-            </div>
-
             <div class="project-card">
-                <div class="card-header">
-                    <img src="https://i.imgur.com/s6nC3jW.png" alt="Project Thumbnail" class="card-thumbnail">
-                    <div>
-                        <h4 class="card-title">JS Game: Space Rocks</h4>
-                        <p class="card-date">Created: 2 days ago</p>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="tech-stack">
-                        <span>HTML</span><span>CSS</span><span>JS</span>
-                    </div>
-                </div>
-                <i class='bx bx-dots-horizontal-rounded card-options'></i>
+                    @forelse ($projects as $p)
+                            <h3>{{ $p->title }}</h3>
+                            <p>Last updated: {{ $p->updated_at->diffForHumans() }}</p>
+                            <a href="{{ route('editor') }}?id={{ $p->id }}" class="text-indigo-600 hover:underline">Open Editor</a>
+                    @empty
+                        <p>No saved projects yet.</p>
+                    @endforelse
             </div>
 
             <div class="project-card">

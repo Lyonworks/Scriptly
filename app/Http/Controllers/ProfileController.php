@@ -21,7 +21,9 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        return view('profile', compact('user'));
+        $projects = $user->projects()->latest()->get();
+
+        return view('profile', compact('user', 'projects'));
     }
 
     public function update(Request $request)

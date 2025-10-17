@@ -17,13 +17,14 @@ use App\Http\Middleware\EnsureRole;
 
 // ==================== USER ====================
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/editor', [HomeController::class, 'editor']);
+Route::get('/editor', [HomeController::class, 'editor'])->name('editor');
 Route::get('/projects', [HomeController::class, 'projects']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::resource('projects', ProjectController::class);
+    Route::get('/projects', [ProjectController::class, 'myProjects'])->name('projects.index');
+    Route::post('/projects/save', [ProjectController::class, 'save'])->name('projects.save');
 });
 
 // ==================== AUTH =====================
