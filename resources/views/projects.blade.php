@@ -3,7 +3,7 @@
 @section('content')
 <div class="projects-dashboard">
     <div class="dashboard-header">
-        <h2>Your Projects</h2>
+        <h2>Projects</h2>
         <div class="dashboard-controls">
             <a href="{{ route('editor') }}" class="btn btn-primary">+ New Project</a>
         </div>

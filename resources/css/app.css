@@ -269,13 +269,13 @@ body {
     height: auto;
 }
 
-/* === COMPONENT: PROJECTS GRID & CARDS (Used on Projects & Profile page) === */
+/* === COMPONENT: PROJECTS GRID & CARDS === */
 .projects-dashboard {
     background: var(--dark-bg-secondary);
     border: 1px solid var(--border-color);
-    padding: 30px;
     border-radius: var(--border-radius);
     margin-top: 20px;
+    padding: 30px;
 }
 
 .dashboard-header {
@@ -330,14 +330,14 @@ body {
 .project-card .edit-project-btn i { font-size: 14px; }
 .project-card .edit-project-btn:hover { transform: translateY(-1px); opacity: .95; }
 
-.project-card .h4 {
+.project-card h4 {
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-light-primary);
     margin-bottom: 4px;
 }
 
-.project-card .p {
+.project-card p {
     color: var(--text-light-secondary);
     font-size: 0.9rem;
 }
@@ -374,6 +374,7 @@ body {
     background-color: var(--dark-bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
+    margin-top: 20px;
     padding: 30px;
     width: 300px;
     flex-shrink: 0;
@@ -417,13 +418,12 @@ body {
 }
 
 .projects-content {
+    background: var(--dark-bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin-top: 20px;
+    padding: 30px;
     width: 100%;
-}
-
-.projects-content h2 {
-    font-size: 1.8rem;
-    color: var(--text-light-primary);
-    margin-bottom: 25px;
 }
 
 /* Profile Page > Large Project Card Variant */

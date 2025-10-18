@@ -8,14 +8,13 @@
     <style>
         /* 1. Variabel Warna Didefinisikan di Sini */
         :root {
-            --primary-purple: #6D28D9;
-            --primary-blue: #4F46E5;
-            --dark-bg: #111827;
-            --medium-bg: #1F2937;
-            --light-bg: #F9FAFB;
-            --text-light: #E5E7EB;
-            --text-dark: #374151;
+            --primary-blue: #5050F4;
+            --dark-bg-primary: #111827;
+            --dark-bg-secondary: #1F2937;
+            --text-light-primary: #E5E7EB;
+            --text-light-secondary: #A8B2D1;
             --border-color: #374151;
+            --border-radius: 12px;
         }
 
         *{
@@ -32,14 +31,14 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #E0E7FF, #F3E8FF);
+            background: linear-gradient(135deg, var(--dark-bg-primary), var(--dark-bg-secondary));
         }
 
         .container{
             position: relative;
             width: 850px;
             height: 550px;
-            background: var(--light-bg);
+            background: var(--dark-bg-secondary);
             margin: 20px;
             border-radius: 30px;
             box-shadow: 0 0 30px rgba(0, 0, 0, .2);
@@ -63,10 +62,10 @@
             right: 0;
             width: 50%;
             height: 100%;
-            background: var(--light-bg);
+            background: var(--dark-bg-secondary);
             display: flex;
             align-items: center;
-            color: var(--text-dark);
+            color: var(--text-light-primary);
             text-align: center;
             padding: 40px;
             z-index: 1;
@@ -88,7 +87,7 @@
             padding: 13px 50px 13px 20px;
             background: #fff;
             border-radius: 8px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border-color);
             outline: none;
             font-size: 16px;
             color: var(--text-dark);
@@ -96,7 +95,7 @@
         }
 
         .input-box input::placeholder{
-            color: #888;
+            color: var(--text-light-secondary);
             font-weight: 400;
         }
 
@@ -108,6 +107,10 @@
             font-size: 20px;
         }
 
+        .icon {
+            color: var(--primary-blue);
+        }
+
         .forgot-link{ margin: -15px 0 15px; }
         .forgot-link a{
             font-size: 14.5px;
@@ -117,13 +120,13 @@
         .btn{
             width: 100%;
             height: 48px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+            background: var(--primary-blue);
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, .1);
             border: none;
             cursor: pointer;
             font-size: 16px;
-            color: var(--text-light);
+            color: var(--text-light-primary);
             font-weight: 600;
         }
 
@@ -139,7 +142,7 @@
             left: -250%;
             width: 300%;
             height: 100%;
-            background: linear-gradient(90deg, var(--primary-purple), var(--primary-blue));
+            background:  var(--primary-blue);
             border-radius: 150px;
             z-index: 2;
             transition: 1.8s ease-in-out;
@@ -151,7 +154,7 @@
             position: absolute;
             width: 50%;
             height: 100%;
-            color: var(--text-light);
+            color: var(--text-light-primary);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -184,13 +187,13 @@
             width: 160px;
             height: 46px;
             background: transparent;
-            border: 2px solid var(--text-light);
+            border: 2px solid var(--text-light-primary);
             box-shadow: none;
         }
 
         /* 2. Style untuk pesan error */
         .error-message {
-            color: #ef4444; /* Merah */
+            color: #ef4444;
             font-size: 14px;
             margin-top: 10px;
             text-align: left;
@@ -213,11 +216,11 @@
                 <h1>Sign In</h1>
                 <div class="input-box">
                     <input type="email" name="email" placeholder="Email" required>
-                    <i class='bx bxs-envelope'></i>
+                    <i class='bx bxs-envelope icon'></i>
                 </div>
                 <div class="input-box">
                     <input type="password" name="password" placeholder="Password" required>
-                    <i class='bx bxs-lock-alt'></i>
+                    <i class='bx bxs-lock-alt icon'></i>
                 </div>
                 <button type="submit" class="btn">Sign In</button>
 

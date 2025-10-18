@@ -55,68 +55,44 @@
     </aside>
 
     <main class="projects-content">
-        <h2>My Projects</h2>
+        <div class="dashboard-header">
+            <h2>Projects</h2>
+            <div class="dashboard-controls">
+                <a href="{{ route('editor') }}" class="btn btn-primary">+ New Project</a>
+            </div>
+        </div>
 
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
         <div class="projects-grid">
+            @forelse ($projects as $project)
+                <div class="project-card" style="position:relative;">
+                    <a href="{{ route('editor') }}?id={{ $project->id }}" class="edit-project-btn" aria-label="Edit project">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
 
-            <div class="project-card">
-                    @forelse ($projects as $p)
-                            <h3>{{ $p->title }}</h3>
-                            <p>Last updated: {{ $p->updated_at->diffForHumans() }}</p>
-                            <a href="{{ route('editor') }}?id={{ $p->id }}" class="text-indigo-600 hover:underline">Open Editor</a>
-                    @empty
-                        <p>No saved projects yet.</p>
-                    @endforelse
-            </div>
+                    <h4>{{ $project->title }}</h4>
+                    <p>Created: {{ $project->created_at->diffForHumans() }}</p>
 
-            <div class="project-card">
-                <div class="card-header">
-                    <img src="https://i.imgur.com/gL8m6vY.png" alt="Project Thumbnail" class="card-thumbnail">
-                    <div>
-                        <h4 class="card-title">React Todo App</h4>
-                        <p class="card-date">Created: 2 days ago</p>
+                    <div class="tech-stack" aria-hidden="false">
+                        @if(!empty(trim($project->html ?? '')))
+                            <span title="HTML"><i class="bx bxl-html5"></i> HTML</span>
+                        @endif
+                        @if(!empty(trim($project->css ?? '')))
+                            <span title="CSS"><i class="bx bxl-css3"></i> CSS</span>
+                        @endif
+                        @if(!empty(trim($project->js ?? '')))
+                            <span title="JavaScript"><i class="bx bxl-javascript"></i> JS</span>
+                        @endif
                     </div>
                 </div>
-                <div class="card-footer">
-                    <div class="tech-stack">
-                        <span>HTML</span><span>CSS</span><span>JS</span>
-                    </div>
+            @empty
+                <div class="empty-state">
+                    <h3>No projects yet!</h3>
+                    <p>Click "+ New Project" to get started.</p>
                 </div>
-                <i class='bx bx-dots-horizontal-rounded card-options'></i>
-            </div>
-
-            <div class="project-card">
-                <div class="card-header">
-                    <img src="https://i.imgur.com/gL8m6vY.png" alt="Project Thumbnail" class="card-thumbnail">
-                    <div>
-                        <h4 class="card-title">React Todo App</h4>
-                        <p class="card-date">Created: 2 days ago</p>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="tech-stack">
-                        <span>HTML</span><span>CSS</span><span>JS</span>
-                    </div>
-                </div>
-                <i class='bx bx-dots-horizontal-rounded card-options'></i>
-            </div>
-
-            <div class="project-card">
-                <div class="card-header">
-                     <img src="https://i.imgur.com/uG9G1jB.png" alt="Project Thumbnail" class="card-thumbnail">
-                    <div>
-                        <h4 class="card-title">CSS Art: Octpulse</h4>
-                        <p class="card-date">Created: 2 days ago</p>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="tech-stack">
-                        <span>HTML</span><span>CSS</span><span>JS</span>
-                    </div>
-                </div>
-                <i class='bx bx-dots-horizontal-rounded card-options'></i>
-            </div>
-
+            @endforelse
         </div>
     </main>
 
