@@ -18,6 +18,7 @@
             </div>
             <nav class="main-nav">
                 <a href="{{ url('/') }}">Home</a>
+                <a href="{{ url('/explore') }}">Explore</a>
                 <a href="{{ url('/editor') }}">Editor</a>
                 <a href="{{ url('/projects') }}">Projects</a>
             </nav>
@@ -43,7 +44,7 @@
                                     </form>
                                 </li>
                             </ul>
-                        </div>
+                        </div   >
                     @endguest
             </div>
         </header>

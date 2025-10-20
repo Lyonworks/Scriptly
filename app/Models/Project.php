@@ -12,6 +12,10 @@ class Project extends Model
     protected $fillable = [
         'user_id',
         'title',
+        'slug',
+        'description',
+        'is_public',
+        'forked_from',
         'html',
         'css',
         'js',
@@ -19,5 +23,15 @@ class Project extends Model
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(ProjectLike::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(ProjectComment::class);
     }
 }

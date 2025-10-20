@@ -74,7 +74,7 @@ body {
 }
 
 .btn-primary:hover {
-    filter: brightness(1.2);
+    filter: brightness(1);
 }
 
 .icon-btn {
@@ -93,6 +93,33 @@ body {
 }
 
 .icon-btn i { font-size:14px; }
+
+.setting-btn{
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    width: 36px;
+    height: 36px;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+    color: var(--primary-blue);
+    transition: transform .08s ease, opacity .12s ease;
+}
+.setting-btn i { font-size: 14px; }
+.setting-btn:hover { transform: translateY(-1px); opacity: .95; }
+
+.like-btn {
+    cursor: pointer;
+    color: var(--text-light-secondary);
+    transition: color 0.2s ease;
+}
+
+.like-btn.liked {
+    color: var(--primary-blue);
+}
 
 /* === PAGE: LANDING === */
 .hero {
@@ -181,6 +208,26 @@ body {
      padding: 15px;
      margin: 0;
      font-weight: 500;
+}
+
+/* === PAGE: EXPLORE === */
+.explore-avatar{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    object-fit:cover;
+    display:inline-block;
+    vertical-align:middle;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+
+.project-owner {
+    color: var(--text-light-primary);
+}
+
+.like-count {
+    margin-left: 6px;
+    color: var(--text-light-secondary);
 }
 
 /* === PAGE: EDITOR === */
@@ -294,16 +341,15 @@ body {
 }
 
 .project-card {
-    background-color: var(--dark-bg-secondary);
+    background-color: var(--dark-bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     padding: 20px;
     position: relative;
-    transition: transform 0.3s, border-color 0.3s;
+    transition:  border-color 0.3s;
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
     border-color: var(--primary-blue);
 }
 
@@ -313,22 +359,6 @@ body {
     gap: 12px;
     padding-right: 50px;
 }
-
-.project-card .edit-project-btn{
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    color: var(--primary-blue);
-    transition: transform .08s ease, opacity .12s ease;
-    z-index: 5;
-}
-.project-card .edit-project-btn i { font-size: 14px; }
-.project-card .edit-project-btn:hover { transform: translateY(-1px); opacity: .95; }
 
 .project-card h4 {
     font-size: 1.1rem;
@@ -359,6 +389,40 @@ body {
 .empty-state {
     padding: 50px 0;
     color: var(--text-light-secondary);
+}
+
+.dropdown-menu {
+    background: var(--dark-bg-primary);
+    border: 1px solid var(--primary-blue);
+    border-radius: var(--border-radius);
+}
+
+.dropdown-menu a:hover {
+    background: rgba(80, 80, 244, 0.15);
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+.dropdown-menu button:hover {
+    background: rgba(80, 80, 244, 0.15);
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+.dropdown-item {
+    color: var(--text-light-primary);
+    text-decoration: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.dropdown-item-text {
+    color: var(--text-light-primary);
+}
+
+.dropdown-divider {
+    height: 2px;
+    background: var(--primary-blue);
 }
 
 /* === PAGE: PROFILE === */
