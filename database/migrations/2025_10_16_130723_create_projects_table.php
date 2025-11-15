@@ -25,6 +25,7 @@ return new class extends Migration {
 
             $table->foreign('forked_from')->references('id')->on('projects')->cascadeOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

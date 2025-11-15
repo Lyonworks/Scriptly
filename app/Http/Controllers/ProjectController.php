@@ -28,10 +28,10 @@ class ProjectController extends Controller
         return view('explore', compact('projects'));
     }
 
-    // Show project
-    public function show($id)
+    // Show project by slug (readonly viewer)
+    public function show($slug)
     {
-        $project = Project::with('user', 'comments.user')->findOrFail($id);
+        $project = Project::with('user', 'comments.user')->where('slug', $slug)->firstOrFail();
 
         if (!$project->is_public && Auth::id() !== $project->user_id) {
             abort(404);
@@ -112,14 +112,11 @@ class ProjectController extends Controller
     // Check duplicate name
     public function checkName(Request $request)
     {
-        $request->validate(['name' => ['required', 'string', 'max:255']]);
-
-        $name = $request->query('name');
-        $exists = Project::where('user_id', Auth::id())
-            ->whereRaw('LOWER(title) = ?', [Str::lower($name)])
+        $exists = \App\Models\Project::where('title', $request->name)
+            ->where('user_id', auth()->id())
             ->exists();
 
-        return response()->json(['exists' => (bool) $exists]);
+        return response()->json(['exists' => $exists]);
     }
 
     // Save project (for AJAX)
@@ -179,26 +176,68 @@ class ProjectController extends Controller
     }
 
     // Edit project
-    public function edit($id)
+    public function edit($slug)
     {
-        $project = Project::findOrFail($id);
+        $project = Project::with('user')->where('slug', $slug)->firstOrFail();
         $this->authorize('view', $project);
         return view('editor', compact('project'));
     }
 
-    // Delete project (support AJAX)
-    public function delete($id)
+    // Update project
+    public function update(Request $request, $slug)
     {
-        $project = Project::findOrFail($id);
+        $project = Project::where('slug', $slug)->firstOrFail();
+        $this->authorize('update', $project);
+
+        $data = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'html' => ['nullable', 'string'],
+            'css' => ['nullable', 'string'],
+            'js' => ['nullable', 'string'],
+            'is_public' => ['boolean'],
+        ]);
+
+        // 🔁 Generate slug baru jika title berubah
+        if ($data['title'] !== $project->title) {
+            $baseSlug = \Str::slug($data['title']);
+            $newSlug = $baseSlug;
+            $counter = 1;
+
+            // Pastikan slug unik
+            while (Project::where('slug', $newSlug)->where('id', '!=', $project->id)->exists()) {
+                $newSlug = $baseSlug . '-' . $counter++;
+            }
+
+            $project->slug = $newSlug;
+        }
+
+        // Update data lain
+        $project->update([
+            'title' => $data['title'],
+            'description' => $data['description'] ?? $project->description,
+            'html' => $data['html'] ?? $project->html,
+            'css' => $data['css'] ?? $project->css,
+            'js' => $data['js'] ?? $project->js,
+            'is_public' => $data['is_public'] ?? $project->is_public,
+        ]);
+
+        return redirect()
+            ->route('projects.edit', $project->slug)
+            ->with('success', 'Project updated successfully!');
+    }
+
+    // Delete project
+    public function delete($slug)
+    {
+        $project = Project::where('slug', $slug)->firstOrFail();
         $this->authorize('delete', $project);
         $project->delete();
 
-        // Jika request dari AJAX, kirim JSON.
         if (request()->expectsJson()) {
             return response()->json(['success' => true, 'message' => 'Project deleted successfully!']);
         }
 
-        // Jika dari browser biasa (form POST), redirect balik ke halaman projects.
-        return redirect()->route('projects')->with('success', 'Project deleted successfully!');
+        return redirect()->route('projects.index')->with('success', 'Project deleted successfully!');
     }
 }

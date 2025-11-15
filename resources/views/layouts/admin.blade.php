@@ -12,7 +12,7 @@
 
   <div class="d-flex">
     {{-- Sidebar --}}
-    <div class="text-white p-3 min-vh-100" style="width: 240px; background: #2F4F4F;">
+    <div class="text-white p-3 min-vh-100" style="width: 240px; background: #1F2937;">
       <h4 class="mb-3 text-center">
         <a href="/" class="text-decoration-none text-white fw-bold">ExploreNusa</a>
       </h4>
@@ -29,22 +29,10 @@
           </li>
         @endif
         <li class="nav-item mb-2">
-          <a href="/admin/destinations" class="nav-link text-white"><img src="{{ asset('storage/icons/location-dot-solid-full.svg') }}" width="22" height="22" class="me-2"> Destinations</a>
+          <a href="/admin/projects" class="nav-link text-white"><img src="{{ asset('storage/icons/file-solid-full.svg') }}" width="22" height="22" class="me-2"> Projects</a>
         </li>
         <li class="nav-item mb-2">
-          <a href="/admin/facilities" class="nav-link text-white"><img src="{{ asset('storage/icons/map-pin-solid-full.svg') }}" alt="Users" width="22" height="22" class="me-2"> Facilities</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a href="/admin/trending" class="nav-link text-white"><img src="{{ asset('storage/icons/fire-solid-full.svg') }}" width="22" height="22" class="me-2"> Trending Tours</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a href="/admin/top" class="nav-link text-white"><img src="{{ asset('storage/icons/star-solid-full.svg') }}" width="22" height="22" class="me-2"> Top Destinations</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a href="/admin/reviews" class="nav-link text-white"><img src="{{ asset('storage/icons/comment-solid-full.svg') }}" width="22" height="22" class="me-2"> Reviews</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a href="/admin/blogs" class="nav-link text-white"><img src="{{ asset('storage/icons/newspaper-solid-full.svg') }}" width="22" height="22" class="me-2"> Blogs</a>
+          <a href="/admin/analytics" class="nav-link text-white"><img src="{{ asset('storage/icons/chart-simple-solid-full.svg') }}" alt="Users" width="22" height="22" class="me-2"> Analytics</a>
         </li>
       </ul>
     </div>
@@ -54,7 +42,7 @@
 
       {{-- Profil User yang login --}}
       @if(Auth::check())
-      <div class="d-flex justify-content-between align-items-center text-white mb-4 p-3 rounded shadow-sm" style="background: #2F4F4F;">
+      <div class="d-flex justify-content-between align-items-center text-white mb-4 p-3 rounded shadow-sm" style="background: #1F2937;">
         <div>
           <h5 class="mb-0">👋 Hai, {{ Auth::user()->name }}</h5>
           <small>Role:

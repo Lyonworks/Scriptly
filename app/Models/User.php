@@ -24,11 +24,6 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
-
     public function profile()
     {
         return $this->hasOne(Profile::class);

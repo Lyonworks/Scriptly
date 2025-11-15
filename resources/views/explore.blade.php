@@ -15,7 +15,7 @@
     <div class="projects-grid">
         @forelse($projects as $project)
             <div class="project-card project-item"
-                 data-url="{{ route('projects.show', $project->id) }}"
+                 data-url="{{ route('projects.show', $project->slug) }}"
                  style="cursor:pointer; position:relative;">
 
                 <div class="d-flex align-items-center mb-3">
@@ -31,8 +31,8 @@
                     </div>
                 </div>
 
-                <p class="project-description mb-5">
-                    {{ $project->description }}
+                <p class="mb-5">
+                    {{ Str::limit($project->description, 69) }}
                 </p>
 
                 <div class="d-flex justify-content-between align-items-center">

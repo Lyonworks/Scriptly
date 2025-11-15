@@ -1,38 +1,88 @@
 @extends('layouts.admin')
-@section('title','Admin Dashboard')
+@section('title', 'Admin Dashboard')
 
 @section('content')
-  <h1 class="fw-bold mb-4">Welcome to Admin Dashboard</h1>
+<div class="dashboard space-y-6">
+  <h1 class="dashboard-title">Dashboard Overview</h1>
 
-  <div class="row">
-    
-        <!-- Calendar + Clock -->
-        <div class="col-12">
-          <div class="card text-center shadow-sm h-100">
-            <div class="card-body">
-              <h2 id="clock" class="fw-bold mb-2"></h2>
-              <small id="date" class="text-muted"></small>
-            </div>
-          </div>
-        </div>
-      </div>
+  {{-- Statistik Ringkas --}}
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>Total Users</h3>
+      <p>{{ number_format($totalUsers) }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Total Projects</h3>
+      <p>{{ number_format($totalProjects) }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Code Executions</h3>
+      <p>{{ number_format($totalExecutions) }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Public Projects</h3>
+      <p>{{ number_format($totalPublic) }}</p>
     </div>
   </div>
 
-  {{-- Script Jam & Kalender --}}
-  <script>
-    function updateClock() {
-      const now = new Date();
-      const clock = document.getElementById("clock");
-      const date = document.getElementById("date");
+  {{-- Aktivitas Terakhir --}}
+  <div class="activity-card">
+    <h3 class="card-title">⏱️ Recent Activity</h3>
+    <ul class="activity-list">
+      @foreach($recentActivities as $activity)
+      <li>
+        <span>{!! $activity->description !!}</span>
+        <small>{{ $activity->created_at->diffForHumans() }}</small>
+      </li>
+      @endforeach
+    </ul>
+  </div>
 
-      const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  {{-- Grafik --}}
+  <div class="charts-grid">
+    <div class="chart-card">
+      <h3>📈 User Growth per Month</h3>
+      <canvas id="userChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>🚀 Project Growth per Month</h3>
+      <canvas id="projectChart"></canvas>
+    </div>
+  </div>
+</div>
 
-      clock.textContent = now.toLocaleTimeString();
-      date.textContent = now.toLocaleDateString('en-US', optionsDate);
-    }
+{{-- Script Chart.js --}}
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const userChart = new Chart(document.getElementById('userChart'), {
+  type: 'line',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets: [{
+      label: 'Users',
+      data: {!! json_encode(array_values($userGrowth)) !!},
+      borderColor: '#60A5FA',
+      backgroundColor: 'rgba(96,165,250,0.3)',
+      fill: true,
+      tension: 0.4
+    }]
+  },
+  options: { responsive: true, plugins: { legend: { display: false } } }
+});
 
-    setInterval(updateClock, 1000);
-    updateClock();
-  </script>
+const projectChart = new Chart(document.getElementById('projectChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets: [{
+      label: 'Projects',
+      data: {!! json_encode(array_values($userGrowth)) !!},
+      backgroundColor: '#34D399'
+    }]
+  },
+  options: { responsive: true, plugins: { legend: { display: false } } }
+});
+</script>
+@endpush
 @endsection

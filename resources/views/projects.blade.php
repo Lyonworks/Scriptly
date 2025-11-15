@@ -22,9 +22,13 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('projects.edit', $project->id) }}"><i class="fa-solid fa-pen me-2"></i> Edit</a></li>
                             <li>
-                                <form action="{{ route('projects.delete', $project->id) }}" method="POST" onsubmit="return confirm('Are you sure want to delete this project?');">
+                                <a class="dropdown-item" href="{{ route('projects.edit', $project->slug) }}">
+                                    <i class="fa-solid fa-pen me-2"></i> Edit
+                                </a>
+                            </li>
+                            <li>
+                                <form action="{{ route('projects.delete', $project->slug) }}" method="POST" onsubmit="return confirm('Are you sure want to delete this project?');">
                                     @csrf
                                     @method('DELETE')
                                     <button class="dropdown-item">

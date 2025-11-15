@@ -37,4 +37,20 @@ class UserController extends Controller
 
         return redirect('/admin/users')->with('success','User deleted successfully.');
     }
+
+    public function suspend(User $user)
+    {
+        $user->is_suspended = true;
+        $user->save();
+
+        return redirect()->back()->with('success', 'User has been suspended.');
+    }
+
+    public function activate(User $user)
+    {
+        $user->is_suspended = false;
+        $user->save();
+
+        return redirect()->back()->with('success', 'User has been reactivated.');
+    }
 }

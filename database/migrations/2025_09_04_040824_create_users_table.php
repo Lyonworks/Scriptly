@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('link1')->nullable();
             $table->string('link2')->nullable();
             $table->string('link3')->nullable();
+            $table->boolean('is_suspended')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

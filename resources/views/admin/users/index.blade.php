@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title','Manage Users')
 @section('content')
-<h2 class="fw-bold mb-4">Users</h2>
+<h2 class="fw-bold text-white mb-4">Users Management</h2>
 
 <div class="card shadow-sm rounded-4 p-3">
   <div class="table-responsive">
@@ -11,6 +11,8 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
+                <th>Join Date</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,6 +22,14 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role->name ?? '-' }}</td>
+                <td>{{ $user->created_at->format('d M Y') }}</td>
+                <td>
+                    @if($user->is_suspended)
+                        <span class="badge bg-danger">Suspended</span>
+                    @else
+                        <span class="badge bg-success">Active</span>
+                    @endif
+                </td>
                 <td>
                 <a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-sm btn-primary">Edit</a>
                 <form action="{{ route('admin.users.destroy',$user->id) }}" method="POST" class="d-inline">
