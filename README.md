@@ -78,7 +78,3 @@ This project offers a foundation for developers to build upon, providing a struc
 3.  Commit perubahan Anda (`git commit -m 'Add some AmazingFeature'`).
 4.  Push ke branch (`git push origin feature/AmazingFeature`).
 5.  Buka Pull Request.
-
-
----
-README.md ini dihasilkan secara otomatis oleh [README.MD Generator](https://github.com/emRival) — dibuat dengan ❤️ oleh [emRival](https://github.com/emRival)
