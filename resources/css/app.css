@@ -17,6 +17,10 @@ body {
     line-height: 1.6;
 }
 
+main {
+    min-height: 100vh;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -56,6 +60,12 @@ body {
 
 .main-nav a:hover {
     color: var(--primary-blue);
+}
+
+/* === FOOTER === */
+.footer{
+    background: var(--dark-bg-secondary);
+    color: var(--text-light-secondary);
 }
 
 /* === BUTTONS === */

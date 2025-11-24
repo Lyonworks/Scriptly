@@ -15,7 +15,9 @@
 
         <div class="projects-grid">
             @forelse ($projects as $project)
-                <div class="project-card" style="position:relative;">
+                <div class="project-card"
+                     style="position:relative; cursor:pointer;"
+                     onclick="window.location='{{ route('projects.show', $project->slug) }}'">
                     <div class="dropstart position-absolute top-0 end-0 mt-2 me-2">
                         <a class="setting-btn" data-bs-toggle="dropdown" aria-expanded="false" aria-label="setting project">
                             <i class="fa-solid fa-ellipsis"></i>
