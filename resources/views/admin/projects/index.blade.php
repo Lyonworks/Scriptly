@@ -37,10 +37,10 @@
   </div>
 
   {{-- Table --}}
-  <div class="card shadow-sm rounded-4 p-3">
+  <div class="tables-card shadow-sm rounded-4 p-3">
     <h3 class="mb-3 fw-semibold">📄 Project List</h3>
     <div class="table-responsive">
-      <table class="table table-theme align-middle mb-0">
+      <table class="table table-card text-white align-middle mb-0">
         <thead>
           <tr>
             <th>ID</th>

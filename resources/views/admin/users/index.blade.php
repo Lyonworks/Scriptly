@@ -3,9 +3,9 @@
 @section('content')
 <h2 class="fw-bold text-white mb-4">Users Management</h2>
 
-<div class="card shadow-sm rounded-4 p-3">
+<div class="tables-card shadow-sm rounded-4 p-3">
   <div class="table-responsive">
-    <table class="table table-theme align-middle mb-0">
+    <table class="table table-card align-middle mb-0">
         <thead>
             <tr class="text-center">
                 <th>Name</th>

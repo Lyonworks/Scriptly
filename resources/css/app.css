@@ -889,6 +889,21 @@ main {
   margin-bottom: 1rem;
 }
 
+.tables-card {
+  background: var(--dark-bg-secondary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.table-card {
+  --bs-table-bg: var(--dark-bg-secondary);
+  --bs-table-hover-bg: var(--dark-bg-hover);
+  --bs-table-border-color: var(--dark-border);
+  --bs-table-color: var(--text-light-primary);
+}
+
+
 
 /* === RESPONSIVENESS === */
 @media (max-width: 992px) {
